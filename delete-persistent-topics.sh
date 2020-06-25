@@ -17,6 +17,11 @@ TOPICS['WORKER_EVENTS']="persistent://$TENANT/$LOGS_NAMESPACE/worker-events"
 TOPICS['COMMANDS']="persistent://$TENANT/$TOPICS_NAMESPACE/commands"
 TOPICS['REPLIES']="persistent://$TENANT/$TOPICS_NAMESPACE/replies"
 
+type pulsar-admin &> /dev/null || {
+    echo "ERROR: pulsar-admin binary doesn't seem to exist in the PATH. Please set PULSAR_HOME environment variable to the correct path."
+    exit 1
+    }
+
 for topicName in "${!TOPICS[@]}";
 do
     topicUri=${TOPICS[$topicName]}
